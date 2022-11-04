@@ -18,3 +18,5 @@ node_modules
 /types
 .oracle/
 test.js
+*.lock
+package-lock.json
