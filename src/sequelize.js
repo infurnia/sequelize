@@ -537,7 +537,7 @@ class Sequelize {
    */
 
   async query(sql, options) {
-    console.log(`query.....1....`, sql);
+    console.log(`\nquery.....1....`, sql);
     options = { ...this.options.query, ...options };
 
     if (options.instance && !options.model) {
