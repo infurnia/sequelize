@@ -640,7 +640,7 @@ class Sequelize {
       const connection = await (options.transaction ? options.transaction.connection : this.connectionManager.getConnection(options));
       var endtime = process.hrtime(hrstart);
       // console.log("[**] sql query: " + sql);
-      // console.log("src/sequelize.js:638 getConnection -> %d ms", endtime[1] / 1000000)
+      console.log(`src/sequelize.js:638 getConnection: ${sql_trim} -> ${endtime[1] / 1000000} ms`)
       console.timeEnd(`src/sequelize.js:638 getConnection: ${sql_trim}`);
 
       if (this.options.dialect === 'db2' && options.alter) {
