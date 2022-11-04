@@ -130,7 +130,10 @@ class Query extends AbstractQuery {
     }
 
     if (this.isSelectQuery()) {
-      return this.handleSelectQuery(data);
+      console.time(`dialects/mysql/query.js:134 handleSelectQuery`);
+      let res = this.handleSelectQuery(data);
+      console.timeEnd(`dialects/mysql/query.js:134 handleSelectQuery`);
+      return res;
     }
     if (this.isShowTablesQuery()) {
       return this.handleShowTablesQuery(data);
