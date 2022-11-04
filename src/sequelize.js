@@ -537,7 +537,7 @@ class Sequelize {
    */
 
   async query(sql, options) {
-    console.log(`\nquery.....1....`, sql);
+    let sql_trim = sql.substring(sql.length-5);
     options = { ...this.options.query, ...options };
 
     if (options.instance && !options.model) {
@@ -635,13 +635,13 @@ class Sequelize {
 
       checkTransaction();
 
-      // console.time("src/sequelize.js:638 getConnection")
+      console.time(`src/sequelize.js:638 getConnection: ${sql_trim}`);
       var hrstart = process.hrtime()
       const connection = await (options.transaction ? options.transaction.connection : this.connectionManager.getConnection(options));
       var endtime = process.hrtime(hrstart);
       // console.log("[**] sql query: " + sql);
       // console.log("src/sequelize.js:638 getConnection -> %d ms", endtime[1] / 1000000)
-      // console.timeEnd("src/sequelize.js:638 getConnection")
+      console.timeEnd(`src/sequelize.js:638 getConnection: ${sql_trim}`);
 
       if (this.options.dialect === 'db2' && options.alter) {
         if (options.alter.drop === false) {
@@ -649,16 +649,16 @@ class Sequelize {
         }
       }
 
-      console.time("src/sequelize.js:648 this.dialect.Query (Initialization)")
+      console.time(`src/sequelize.js:648 this.dialect.Query (Initialization): ${sql_trim}`)
       const query = new this.dialect.Query(connection, this, options);
-      console.timeEnd("src/sequelize.js:648 this.dialect.Query (Initialization)")
+      console.timeEnd(`src/sequelize.js:648 this.dialect.Query (Initialization): ${sql_trim}`)
 
       try {
         await this.runHooks('beforeQuery', options, query);
         checkTransaction();
-        console.time("src/sequelize.js:655 query.run")
+        console.time(`src/sequelize.js:655 query.run: ${sql_trim}`)
         let res = await query.run(sql, bindParameters);
-        console.timeEnd("src/sequelize.js:655 query.run")
+        console.timeEnd(`src/sequelize.js:655 query.run: ${sql_trim}`)
         return res;
       } finally {
         await this.runHooks('afterQuery', options, query);
