@@ -635,10 +635,10 @@ class Sequelize {
 
       checkTransaction();
 
-      console.time(`src/sequelize.js:638 getConnection: ${sql_trim}`);
+      // console.time(`src/sequelize.js:638 getConnection: ${sql_trim}`);
       const connection = await (options.transaction ? options.transaction.connection : this.connectionManager.getConnection(options));
       // console.log("[**] sql query: " + sql);
-      console.timeEnd(`src/sequelize.js:638 getConnection: ${sql_trim}`);
+      // console.timeEnd(`src/sequelize.js:638 getConnection: ${sql_trim}`);
 
       if (this.options.dialect === 'db2' && options.alter) {
         if (options.alter.drop === false) {
@@ -646,16 +646,16 @@ class Sequelize {
         }
       }
 
-      console.time(`src/sequelize.js:648 this.dialect.Query (Initialization): ${sql_trim}`)
+      // console.time(`src/sequelize.js:648 this.dialect.Query (Initialization): ${sql_trim}`)
       const query = new this.dialect.Query(connection, this, options);
-      console.timeEnd(`src/sequelize.js:648 this.dialect.Query (Initialization): ${sql_trim}`)
+      // console.timeEnd(`src/sequelize.js:648 this.dialect.Query (Initialization): ${sql_trim}`)
 
       try {
         await this.runHooks('beforeQuery', options, query);
         checkTransaction();
-        console.time(`src/sequelize.js:655 query.run: ${sql_trim}`)
+        // console.time(`src/sequelize.js:655 query.run: ${sql_trim}`)
         let res = await query.run(sql, bindParameters);
-        console.timeEnd(`src/sequelize.js:655 query.run: ${sql_trim}`)
+        // console.timeEnd(`src/sequelize.js:655 query.run: ${sql_trim}`)
         return res;
       } finally {
         await this.runHooks('afterQuery', options, query);

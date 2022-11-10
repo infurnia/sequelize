@@ -280,9 +280,12 @@ class AbstractQuery {
       }, result));
     }
 
+    //TODO:INTEREST
     // Raw queries
     if (this.options.raw) {
+      console.log(`query.js:286 ===> raw is true`);
       result = results.map(result => {
+        console.log(`\tresult ===> `, result);
         let o = {};
 
         for (const key in result) {
