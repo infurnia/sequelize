@@ -287,17 +287,20 @@ class AbstractQuery {
       result = results.map(result => {
         console.log(`\tresult ===> `, result);
         let o = {};
-
+        const bool_fields = ['global'];
         for (const key in result) {
           if (Object.prototype.hasOwnProperty.call(result, key)) {
             o[key] = result[key];
+          }
+          if (bool_fields.includes(key)){
+            o[key]=o[key]==1?true:false;
           }
         }
 
         if (this.options.nest) {
           o = Dot.transform(o);
         }
-
+        console.log("\to ===> ", o);
         return o;
       });
     // Queries with include
