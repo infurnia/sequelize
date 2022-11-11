@@ -285,7 +285,7 @@ class AbstractQuery {
     if (this.options.raw) {
       console.log(`query.js:286 ===> raw is true`);
       console.time('bool_fields_time1');
-      const bool_fields = options.boolean_fields;
+      const bool_fields = this.options.boolean_fields;
       console.log(bool_fields);
       console.timeEnd('bool_fields_time1');
       result = results.map(result => {
