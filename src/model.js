@@ -927,7 +927,7 @@ class Model {
    * @param {boolean}                 [options.timestamps=true] Adds createdAt and updatedAt timestamps to the model.
    * @param {boolean}                 [options.paranoid=false] Calling `destroy` will not delete the model, but instead set a `deletedAt` timestamp if this is true. Needs `timestamps=true` to work
    * @param {boolean}                 [options.underscored=false] Add underscored field to all attributes, this covers user defined attributes, timestamps and foreign keys. Will not affect attributes with explicitly set `field` option
-   * @param {Array<string>}           [options.boolean_fields=[]] Add underscored field to all attributes, this covers user defined attributes, timestamps and foreign keys. Will not affect attributes with explicitly set `field` option
+   * @param {Array<string>}           [options.booleanFields=[]] Add underscored field to all attributes, this covers user defined attributes, timestamps and foreign keys. Will not affect attributes with explicitly set `field` option
    * @param {boolean}                 [options.freezeTableName=false] If freezeTableName is true, sequelize will not try to alter the model name to get the table name. Otherwise, the model name will be pluralized
    * @param {object}                  [options.name] An object with two attributes, `singular` and `plural`, which are used when this model is associated to others.
    * @param {string}                  [options.name.singular=Utils.singularize(modelName)] Singular name for model
@@ -971,11 +971,11 @@ class Model {
       options.modelName = this.name;
     }
 
-    if(!options.boolean_fields){
-      options.boolean_fields = [];
+    if(!options.booleanFields){
+      options.booleanFields = [];
     }
 
-    this.boolean_fields = options.boolean_fields;
+    this.booleanFields = options.booleanFields;
 
     options = Utils.merge({
       name: {
@@ -1020,7 +1020,7 @@ class Model {
     this._setupHooks(options.hooks);
 
     this.underscored = this.options.underscored;
-    this.boolean_fields = this.options.boolean_fields;
+    this.booleanFields = this.options.booleanFields;
 
     if (!this.options.tableName) {
       this.tableName = this.options.freezeTableName ? this.name : Utils.underscoredIf(Utils.pluralize(this.name), this.underscored);

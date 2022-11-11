@@ -548,8 +548,8 @@ class Sequelize {
       options.raw = true;
     }
 
-    if (!options.boolean_fields) {
-      options.boolean_fields = [];
+    if (!options.booleanFields) {
+      options.booleanFields = [];
     }
 
     // map raw fields to model attributes
@@ -557,7 +557,7 @@ class Sequelize {
       options.fieldMap = _.get(options, 'model.fieldAttributeMap', {});
     }
 
-    options.boolean_fields = _.get(options, 'model.boolean_fields', []);
+    options.booleanFields = _.get(options, 'model.booleanFields', []);
 
     options = _.defaults(options, {
       // eslint-disable-next-line no-console

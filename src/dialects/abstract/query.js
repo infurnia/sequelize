@@ -289,7 +289,7 @@ class AbstractQuery {
           if (Object.prototype.hasOwnProperty.call(result, key)) {
             o[key] = result[key];
           }
-          if (this.options.boolean_fields.includes(key)){
+          if (this.options.booleanFields.includes(key)){
             o[key]=o[key]==1?true:false;
           }
         }
