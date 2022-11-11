@@ -284,16 +284,20 @@ class AbstractQuery {
     // Raw queries
     if (this.options.raw) {
       console.log(`query.js:286 ===> raw is true`);
+      console.time('bool_fields_time1');
+      const bool_fields = options.boolean_fields;
+      console.log(bool_fields);
+      console.timeEnd('bool_fields_time1');
       result = results.map(result => {
-        console.log(`\tresult ===> `, result);
         let o = {};
-        const bool_fields = ['global'];
         for (const key in result) {
           if (Object.prototype.hasOwnProperty.call(result, key)) {
             o[key] = result[key];
           }
           if (bool_fields.includes(key)){
+            console.time('bool_fields_time2');
             o[key]=o[key]==1?true:false;
+            console.timeEnd('bool_fields_time2');
           }
         }
 

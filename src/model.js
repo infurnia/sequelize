@@ -1728,6 +1728,7 @@ class Model {
    * @param  {string|object}                                             [options.lock] Lock the selected rows. Possible options are transaction.LOCK.UPDATE and transaction.LOCK.SHARE. Postgres also supports transaction.LOCK.KEY_SHARE, transaction.LOCK.NO_KEY_UPDATE and specific model locks with joins.
    * @param  {boolean}                                                   [options.skipLocked] Skip locked rows. Only supported in Postgres.
    * @param  {boolean}                                                   [options.raw] Return raw result. See sequelize.query for more information.
+   * @param  {Array<string>}                                             [options.boolean_fields] List of fields for which true/false will be returned instead of 0/1 in case raw is true
    * @param  {Function}                                                  [options.logging=false] A function that gets executed while running the query to log the sql.
    * @param  {boolean}                                                   [options.benchmark=false] Pass query execution time in milliseconds as second argument to logging function (options.logging).
    * @param  {object}                                                    [options.having] Having options
