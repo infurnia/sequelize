@@ -557,7 +557,7 @@ class Sequelize {
       options.fieldMap = _.get(options, 'model.fieldAttributeMap', {});
     }
 
-    options.boolean_fields = _,get(options, 'model.boolean_fields', []);
+    options.boolean_fields = _.get(options, 'model.boolean_fields', []);
 
     options = _.defaults(options, {
       // eslint-disable-next-line no-console
