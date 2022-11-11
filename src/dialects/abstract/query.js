@@ -283,28 +283,19 @@ class AbstractQuery {
     //TODO:INTEREST
     // Raw queries
     if (this.options.raw) {
-      console.log(`query.js:286 ===> raw is true`);
-      console.time('bool_fields_time1');
-      const bool_fields = this.options.boolean_fields;
-      console.log(bool_fields);
-      console.timeEnd('bool_fields_time1');
       result = results.map(result => {
         let o = {};
         for (const key in result) {
           if (Object.prototype.hasOwnProperty.call(result, key)) {
             o[key] = result[key];
           }
-          if (bool_fields.includes(key)){
-            console.time('bool_fields_time2');
+          if (this.options.boolean_fields.includes(key)){
             o[key]=o[key]==1?true:false;
-            console.timeEnd('bool_fields_time2');
           }
         }
-
         if (this.options.nest) {
           o = Dot.transform(o);
         }
-        console.log("\to ===> ", o);
         return o;
       });
     // Queries with include

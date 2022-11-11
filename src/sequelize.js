@@ -512,7 +512,6 @@ class Sequelize {
    * @param {string}          sql
    * @param {object}          [options={}] Query options.
    * @param {boolean}         [options.raw] If true, sequelize will not try to format the results of the query, or build an instance of a model from the result
-   * @param  {Array<string>}  [options.boolean_fields=[]] List of fields for which true/false will be returned instead of 0/1 in case raw is true
    * @param {Transaction}     [options.transaction=null] The transaction that the query should be executed under
    * @param {QueryTypes}      [options.type='RAW'] The type of query you are executing. The query type affects how results are formatted before they are passed back. The type is a string, but `Sequelize.QueryTypes` is provided as convenience shortcuts.
    * @param {boolean}         [options.nest=false] If true, transforms objects with `.` separated property names into nested objects using [dottie.js](https://github.com/mickhansen/dottie.js). For example { 'user.username': 'john' } becomes { user: { username: 'john' }}. When `nest` is true, the query type is assumed to be `'SELECT'`, unless otherwise specified
@@ -557,6 +556,8 @@ class Sequelize {
     if (options.mapToModel) {
       options.fieldMap = _.get(options, 'model.fieldAttributeMap', {});
     }
+
+    options.boolean_fields = _,get(options, 'model.boolean_fields', []);
 
     options = _.defaults(options, {
       // eslint-disable-next-line no-console

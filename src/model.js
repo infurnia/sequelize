@@ -927,6 +927,7 @@ class Model {
    * @param {boolean}                 [options.timestamps=true] Adds createdAt and updatedAt timestamps to the model.
    * @param {boolean}                 [options.paranoid=false] Calling `destroy` will not delete the model, but instead set a `deletedAt` timestamp if this is true. Needs `timestamps=true` to work
    * @param {boolean}                 [options.underscored=false] Add underscored field to all attributes, this covers user defined attributes, timestamps and foreign keys. Will not affect attributes with explicitly set `field` option
+   * @param {Array<string>}           [options.boolean_fields=[]] Add underscored field to all attributes, this covers user defined attributes, timestamps and foreign keys. Will not affect attributes with explicitly set `field` option
    * @param {boolean}                 [options.freezeTableName=false] If freezeTableName is true, sequelize will not try to alter the model name to get the table name. Otherwise, the model name will be pluralized
    * @param {object}                  [options.name] An object with two attributes, `singular` and `plural`, which are used when this model is associated to others.
    * @param {string}                  [options.name.singular=Utils.singularize(modelName)] Singular name for model
@@ -969,6 +970,12 @@ class Model {
     if (!options.modelName) {
       options.modelName = this.name;
     }
+
+    if(!options.boolean_fields){
+      options.boolean_fields = [];
+    }
+
+    this.boolean_fields = options.boolean_fields;
 
     options = Utils.merge({
       name: {
@@ -1013,6 +1020,7 @@ class Model {
     this._setupHooks(options.hooks);
 
     this.underscored = this.options.underscored;
+    this.boolean_fields = this.options.boolean_fields;
 
     if (!this.options.tableName) {
       this.tableName = this.options.freezeTableName ? this.name : Utils.underscoredIf(Utils.pluralize(this.name), this.underscored);
@@ -1728,7 +1736,6 @@ class Model {
    * @param  {string|object}                                             [options.lock] Lock the selected rows. Possible options are transaction.LOCK.UPDATE and transaction.LOCK.SHARE. Postgres also supports transaction.LOCK.KEY_SHARE, transaction.LOCK.NO_KEY_UPDATE and specific model locks with joins.
    * @param  {boolean}                                                   [options.skipLocked] Skip locked rows. Only supported in Postgres.
    * @param  {boolean}                                                   [options.raw] Return raw result. See sequelize.query for more information.
-   * @param  {Array<string>}                                             [options.boolean_fields] List of fields for which true/false will be returned instead of 0/1 in case raw is true
    * @param  {Function}                                                  [options.logging=false] A function that gets executed while running the query to log the sql.
    * @param  {boolean}                                                   [options.benchmark=false] Pass query execution time in milliseconds as second argument to logging function (options.logging).
    * @param  {object}                                                    [options.having] Having options
