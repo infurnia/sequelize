@@ -290,7 +290,7 @@ class AbstractQuery {
             o[key] = result[key];
           }
           if (this.options.booleanFields.includes(key)){
-            o[key]=o[key]==1?true:false;
+            o[key]=(o[key]==null) ? null : (o[key]==1?true:false);
           }
         }
         if (this.options.nest) {
