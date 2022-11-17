@@ -537,7 +537,6 @@ class Sequelize {
    */
 
   async query(sql, options) {
-    let sql_trim = sql.substring(sql.length-5);
     options = { ...this.options.query, ...options };
 
     if (options.instance && !options.model) {
