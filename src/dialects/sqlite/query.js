@@ -107,9 +107,9 @@ class Query extends AbstractQuery {
       return result;
     }
     if (this.isSelectQuery()) {
-      if (this.options.raw) {
+      /* if (this.options.raw) {
         return this.handleSelectQuery(results);
-      }
+      } */
       // This is a map of prefix strings to models, e.g. user.projects -> Project model
       const prefixes = this._collectModels(this.options.include);
 
